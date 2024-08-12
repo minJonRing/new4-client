@@ -8,11 +8,11 @@
       </div>
       <el-form ref="form" :model="form" :rules="rules" autocomplete="on" label-position="left" size="normal">
         <el-form-item prop="username">
-          <el-input ref="username" v-model="form.username" placeholder="账号" clearable />
+          <el-input ref="username" v-model.trim="form.username" placeholder="账号" clearable />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input :key="passwordType" ref="password" v-model.trim="form.password" :type="passwordType" placeholder="密码"
-            name="password" tabindex="2" autocomplete="on" clearable @keyup.native="checkCapslock"
+          <el-input :key="passwordType" ref="password" v-model.trim="form.password" :type="passwordType"
+            placeholder="密码" name="password" tabindex="2" autocomplete="on" clearable @keyup.native="checkCapslock"
             @blur="capsTooltip = false" @keyup.enter.native="handleLogin">
             <el-button slot="append" @click="showPwd">
               <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
@@ -33,7 +33,8 @@
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button class="btn" :loading="loading" type="danger" style="width: 100%" @click.native.prevent="handleLogin">
+          <el-button class="btn" :loading="loading" type="danger" style="width: 100%"
+            @click.native.prevent="handleLogin">
             登录
           </el-button>
         </el-form-item>
@@ -48,6 +49,8 @@ import { blur } from "tqr";
 import Head from '@/modules/head/index.vue'
 
 import { ajax } from '@/api/ajax'
+
+const CryptoJS = require("crypto-js");
 
 export default {
   name: "Login",
@@ -107,7 +110,10 @@ export default {
           this.loading = true;
           // 调取 登录接口  存储用户登录token
           this.$store
-            .dispatch("user/login", this.form)
+            .dispatch("user/login", {
+              ...this.form,
+              password: CryptoJS.MD5(this.form.password).toString()
+            })
             .then(() => {
               if (this.remember) {
                 localStorage.setItem('username', this.form.username)

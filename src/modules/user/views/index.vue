@@ -20,9 +20,9 @@
                         <div class="item">
                             账号状态：{{ userInfo.isDeleted ? '禁用' : '正常' }}
                         </div>
-                        <div class="item">
+                        <!-- <div class="item">
                             手机号：{{ userInfo.phone || '未填写' }}
-                        </div>
+                        </div> -->
                         <div class="item">
                             邮箱：{{ userInfo.email || '未填写' }}
                         </div>
@@ -34,7 +34,7 @@
                                 <span>收藏：</span>
                                 <div class="b">{{ collect.length }}</div>
                             </div>
-                            <div class="item">
+                            <!-- <div class="item">
                                 <i class="el-icon-chat-dot-square"></i>
                                 <span>纠错：</span>
                                 <div class="b">0</div>
@@ -43,7 +43,7 @@
                                 <i class="el-icon-bottom"></i>
                                 <span>已下载：</span>
                                 <div class="b">0</div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="btn" @click="modify = true">修改密码</div>
                     </div>

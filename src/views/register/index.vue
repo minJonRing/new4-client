@@ -79,8 +79,8 @@ export default {
                 password: "",
                 checkPassword: "",
                 email: "",
-                phone: "15988404414",
-                code: "1234",
+                phone: "",
+                code: "",
 
             },
             rules: {},
