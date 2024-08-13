@@ -13,6 +13,7 @@ const CanvasMixin = {
             x: 0,
             y: 0
         },
+        initHeight: 0
     }),
     mounted() {
         const canvas = document.querySelector(".canvas");
@@ -32,12 +33,13 @@ const CanvasMixin = {
             this.currentImg.src = src;
             this.currentImg.onload = () => {
                 // 图片加载完成后调用函数
-
+                // 400 500  720  680
+                // 1.7 1.36 0.94
                 const { width: widthImg, height: heightImg } = this.currentImg;
                 const { width, height } = this.canvas;
                 // 计算宽高比,进行缩放,保证初始画面全部展现在画布上
                 // 默认图片高度为0，需要默认的缩放比例 initScale;
-                this.initScale = height / heightImg;
+                this.initScale = height / heightImg * 0.8;
                 this.imgScale = this.initScale;
 
                 const currentWidth = widthImg * this.imgScale;
@@ -90,16 +92,17 @@ const CanvasMixin = {
             };
             this.canvas.onmousewheel = this.canvas.onwheel = (event) => { //滚轮放大缩小
                 event.preventDefault()
+                const { height } = this.currentImg;
                 var { x, y } = windowToCanvas(event.clientX, event.clientY);
                 const wheelDelta = event.wheelDelta ? event.wheelDelta : (event.deltalY * (-40)); //获取当前鼠标的滚动情况
                 if (wheelDelta > 0) {
-                    // if (this.imgScale < 2) {
-                    this.imgScale *= 2;
-                    this.imgX = this.imgX * 2 - x;
-                    this.imgY = this.imgY * 2 - y;
-                    // }
+                    if (height * this.imgScale < 1020) {
+                        this.imgScale *= 2;
+                        this.imgX = this.imgX * 2 - x;
+                        this.imgY = this.imgY * 2 - y;
+                    }
                 } else {
-                    if (this.imgScale > 0.6) {
+                    if (height * this.imgScale > 340) {
                         this.imgScale /= 2;
                         this.imgX = this.imgX * 0.5 + x * 0.5;
                         this.imgY = this.imgY * 0.5 + y * 0.5;

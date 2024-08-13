@@ -73,7 +73,7 @@
         </div>
     </div>
 </template>
-    
+
 <script>
 import { ajax } from '@/api/ajax'
 import CanvasMixin from './canvas.js'
@@ -191,6 +191,7 @@ export default {
                     this.isExitFile = false;
                     return
                 }
+                console.log(file)
                 this.fileList = file;
                 this.fileIndex = index;
                 const ind = index[this.initPageId]
@@ -334,11 +335,12 @@ export default {
                     return
                 }
                 this.page = ind
+                console.log(this.fileIndex, id)
                 this.initCanvas(this.fileList[ind])
             }
         },
         handleClick(i) {
-            this.page = i + 1
+            this.page = i
             this.initCanvas(this.fileList[i])
         },
         handlePrev() {
@@ -365,7 +367,7 @@ export default {
     }
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .img-mirador {
     padding: 50px 0;
@@ -607,4 +609,3 @@ export default {
     }
 }
 </style>
-    

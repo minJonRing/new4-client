@@ -33,7 +33,7 @@
                     <el-form-item label="邮箱" prop="email">
                         <el-input v-model.trim="form.email" placeholder="请输入邮箱" clearable />
                     </el-form-item>
-                    <!-- <el-form-item label="手机号" prop="phone">
+                    <el-form-item label="手机号" prop="phone">
                         <div class="phone">
                             <el-input v-model.trim="form.phone" placeholder="请输入手机号码" clearable />
                             <div :class="['btn code', isGetCode ? 'active' : '']" @click="handleGetCode">{{ codeName
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </el-form-item>
-                    <el-form-item label="验证码" prop="code">
+                    <!-- <el-form-item label="验证码" prop="code">
                         <el-input v-model.trim="form.code" placeholder="请输入动态验证码" clearable />
                     </el-form-item> -->
                     <el-form-item>
@@ -57,7 +57,7 @@
 
 <script>
 import { title } from '@/settings'
-import { blur, blurEmail, blurMobile } from "tqr";
+import { blur, blurEmail, blurMobile, blurMobileNotRequired } from "tqr";
 
 import Head from '@/modules/head/index.vue'
 import Footer from '@/modules/footer/index.vue'
@@ -143,7 +143,7 @@ export default {
                     trigger: "blur"
                 },
                 email: blurEmail,
-                phone: blurMobile,
+                phone: blurMobileNotRequired,
                 code: blur
             }
         },
