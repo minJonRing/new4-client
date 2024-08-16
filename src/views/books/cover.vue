@@ -153,8 +153,8 @@ export default {
                     }).then(({ data }) => {
                         const { url } = data;
                         const downloadElement = document.createElement("a");
-                        downloadElement.href = "http://1.116.45.32:9966/library" + url;
-                        downloadElement.download = "图书.zip";
+                        downloadElement.href = "/library" + url;
+                        downloadElement.download = this.file.title + ".zip";
                         document.body.appendChild(downloadElement);
                         downloadElement.click(); //点击下载
                         document.body.removeChild(downloadElement); //下载完成移除元素

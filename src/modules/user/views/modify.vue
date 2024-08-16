@@ -24,10 +24,10 @@
         </el-form>
     </div>
 </template>
-  
+
 <script>
-import { mapGetters } from "vuex";
 import { blur } from 'tqr'
+
 export default {
     name: "List",
     components: {
@@ -40,6 +40,7 @@ export default {
                 checkPassword: ''
             },
             rules: {
+                oldPassword: blur,
                 password: {
                     required: true,
                     validator: (rule, value, callback) => {
@@ -69,9 +70,6 @@ export default {
             passwordType1: 'password',
             passwordType2: 'password',
         };
-    },
-    computed: {
-        ...mapGetters(['userInfo']),
     },
     created() {
 
@@ -107,4 +105,3 @@ export default {
 
 }
 </style>
-  

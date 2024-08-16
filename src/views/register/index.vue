@@ -36,9 +36,9 @@
                     <el-form-item label="手机号" prop="phone">
                         <div class="phone">
                             <el-input v-model.trim="form.phone" placeholder="请输入手机号码" clearable />
-                            <div :class="['btn code', isGetCode ? 'active' : '']" @click="handleGetCode">{{ codeName
+                            <!-- <div :class="['btn code', isGetCode ? 'active' : '']" @click="handleGetCode">{{ codeName
                                 }}{{ isGetCode ? '' : '秒后再次获取' }}
-                            </div>
+                            </div> -->
                         </div>
                     </el-form-item>
                     <!-- <el-form-item label="验证码" prop="code">

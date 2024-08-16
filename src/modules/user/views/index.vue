@@ -3,16 +3,16 @@
         <div class="body">
             <div class="head">
                 <div class="left">
-                    <div class="name">{{ userInfo.username }}</div>
-                    <div class="flex flex-mid flex-center " style="height: 40px;">
-                        <el-input v-if="change" v-model="username" placeholder="请输入" clearable>
+                    <div class="name">姓名: {{ userInfo.nickName }}</div>
+                    <!-- <div class="flex flex-mid flex-center " style="height: 40px;">
+                        <el-input v-if="change" v-model="nickName" placeholder="请输入" clearable>
                             <el-button slot="append" icon="el-icon-edit" @click="change = false" />
                         </el-input>
                         <div v-else class="change-name btn" @click="handleChangeName">
                             <span>修改昵称</span>
                             <i class="el-icon-edit"></i>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="divider"></div>
                 <div class="right">
@@ -78,6 +78,7 @@ import { mapGetters } from "vuex";
 import At from './compoments/a.vue'
 import Topic from './compoments/topic.vue'
 import Modify from './modify.vue'
+const CryptoJS = require("crypto-js");
 export default {
     name: "List",
     components: {
@@ -88,7 +89,7 @@ export default {
     data() {
         return {
             change: false,
-            username: '',
+            nickName: '',
             // 
             operate: [
                 { label: '我的收藏', value: 'collect', data: null },
@@ -105,11 +106,11 @@ export default {
         ...mapGetters(['userInfo', 'collect']),
     },
     created() {
-
+        console.log(this.userInfo)
     },
     methods: {
         handleChangeName() {
-            this.username = this.userInfo.username;
+            this.nickName = this.userInfo.nickName;
             this.change = true
         },
         handleOperate(i) {
@@ -121,15 +122,23 @@ export default {
             this.operateIndex = value
         },
         handleModify() {
-            this.$refs.modify.handleRegister((data) => {
+            this.$refs.modify.handleRegister((d) => {
+                const { oldPassword, password, checkPassword } = d;
+                const data = {
+                    oldPassword: CryptoJS.MD5(oldPassword).toString(),
+                    password: CryptoJS.MD5(password).toString(),
+                    checkPassword: CryptoJS.MD5(checkPassword).toString(),
+                }
                 this.$global.loading = true;
                 ajax({
                     url: '/api/user/changePass',
                     method: 'post',
                     data,
-                }).then(() => {
+                }).then(async () => {
                     this.$notify.success('密码修改成功!')
                     this.modify = false;
+                    await this.$store.dispatch("user/logout");
+                    this.$router.push(`/login`);
                 }).finally(() => {
                     this.$global.loading = false;
                 })
