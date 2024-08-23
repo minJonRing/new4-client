@@ -28,7 +28,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from "vuex";
 import { ajax } from '@/api/ajax'
@@ -62,7 +62,10 @@ export default {
                 }
             }).then(({ data }) => {
                 const { list, total } = data;
-                this.list = list.slice(0, 4);
+                if (list) {
+                    const l = list.slice(0, 4)
+                    this.list = l
+                }
 
             }).finally(() => {
                 this.loading = false;
@@ -78,6 +81,9 @@ export default {
         handleLink(i) {
             const { id } = i;
             this.$router.push(`/topic?id=${id}`)
+        },
+        loadImg(e) {
+            console.log(e)
         }
     },
 };
@@ -248,4 +254,3 @@ export default {
 
 }
 </style>
-  

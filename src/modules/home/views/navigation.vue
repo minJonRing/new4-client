@@ -9,7 +9,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from "vuex";
 export default {
@@ -39,7 +39,6 @@ export default {
             { id: 4, label: '期刊' },
             { id: 5, label: '图片' },
         ]
-        console.log(this.bookType)
     },
     methods: {
 
@@ -103,4 +102,3 @@ export default {
     }
 }
 </style>
-  

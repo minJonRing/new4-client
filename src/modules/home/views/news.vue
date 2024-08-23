@@ -25,7 +25,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from "vuex";
 import { ajax } from '@/api/ajax'
@@ -56,8 +56,10 @@ export default {
                 url: `/api/books/newBooks`,
             }).then(({ data }) => {
                 const { list } = data;
-                this.list1 = list.slice(0, 6)
-                this.list2 = list.slice(6, 12)
+                if (list) {
+                    this.list1 = list.slice(0, 6)
+                    this.list2 = list.slice(6, 12)
+                }
             }).finally(() => {
                 this.$global.loading = false;
             })
@@ -178,4 +180,3 @@ export default {
     }
 }
 </style>
-  

@@ -45,7 +45,7 @@
 <script>
 import { title } from '@/settings'
 import { blur } from "tqr";
-
+const CryptoJS = require("crypto-js");
 export default {
   name: "Login",
   data() {
@@ -101,7 +101,10 @@ export default {
           this.loading = true;
           // 调取 登录接口  存储用户登录token
           this.$store
-            .dispatch("user/login", this.form)
+            .dispatch("user/login", {
+              ...this.form,
+              password: CryptoJS.MD5(this.form.password).toString()
+            })
             .then(() => {
               if (this.remember) {
                 localStorage.setItem('username', this.form.username)

@@ -9,7 +9,7 @@
             <div class="base">
                 <div class="label">
                     <router-link class="title btn" :to="`/file?id=${file.id}`" target="_blank">{{ file.title
-                    }}</router-link>
+                        }}</router-link>
                     <div class="down">下载了 : {{ file.downloadSum || 0 }}次</div>
                 </div>
                 <div class="keys">
@@ -29,21 +29,24 @@
                     </div>
                     <div v-if="['ts', 'bz', 'qk'].includes(file.docType)" class="item search">
                         出版者 : <span class="btn" @click="handleSearch('publisher', file.publisher)">{{ file.publisher
-                        }}</span>
+                            }}</span>
                     </div>
                     <div v-if="['ts', 'bz', 'da', 'qk'].includes(file.docType)" class="item search">
                         出版地 : <span class="btn" @click="handleSearch('place', file.place)">{{ file.place
-                        }}</span>
+                            }}</span>
                     </div>
                     <div v-if="['ts', 'bz', 'tp'].includes(file.docType)" class="item">
-                        出版时间 : <span class="btn">{{ file.publishTime ? file.publishTime.replace(/(?=T)|(?=\s).+/g,
-                            '').replace(/\-/g, ($1, i) => {
-                                if (i == 4) {
-                                    return '年'
-                                } else if (i == 7) {
-                                    return '月'
-                                }
-                            }) + '日' : '--' }}</span>
+                        出版时间 : <span class="btn">
+                            <!-- {{ file.publishTime ? file.publishTime.replace(/(?=T)|(?=\s).+/g,
+                                '').replace(/\-/g, ($1, i) => {
+                                    if (i == 4) {
+                                        return '年'
+                                    } else if (i == 7) {
+                                        return '月'
+                                    }
+                                }) + '日' : '--' }} -->
+                            {{ returnTime(file.publishTime) }}
+                        </span>
                     </div>
                     <div v-if="['qk'].includes(file.docType)" class="item">
                         出版周期 : <span class="btn">{{ file.publishCycle }}</span>
@@ -78,6 +81,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import dayjs from 'dayjs'
 export default {
     name: 'Footer',
     props: {
@@ -93,6 +97,7 @@ export default {
     computed: {
         file() {
             const { firstResponsible, secondResponsible } = this.book;
+            console.log(this.book)
             return {
                 ...this.book,
                 firstResponsible: (firstResponsible || '').replace(/\,|\，/g, ',').split(','),
@@ -105,6 +110,18 @@ export default {
     methods: {
         handleSearch(key, value) {
             this.$emit('setParam', { key, value })
+        },
+        returnTime(t) {
+            if (t) {
+                return t.replace(/(?=T)|(?=\s).+/g, '').replace(/\-/g, ($1, i) => {
+                    if (i == 4) {
+                        return '年'
+                    } else if (i == 7) {
+                        return '月'
+                    }
+                }) + '日'
+            }
+            return "--"
         }
     }
 }

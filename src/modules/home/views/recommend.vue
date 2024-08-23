@@ -18,7 +18,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from "vuex";
 import 'swiper/css/swiper.css'
@@ -42,8 +42,6 @@ export default {
 
     },
     mounted() {
-
-
         this.getData()
     },
     methods: {
@@ -222,4 +220,3 @@ export default {
     }
 }
 </style>
-  

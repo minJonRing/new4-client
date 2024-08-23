@@ -26,7 +26,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { ajax } from '@/api/ajax'
 import { mapGetters } from 'vuex';
@@ -58,7 +58,10 @@ export default {
                 }
             }).then(({ data }) => {
                 const { list } = data;
-                this.list = list.slice(0, 4)
+                if (list) {
+                    this.list = list.slice(0, 4)
+                }
+
             }).finally(() => {
                 this.$global.loading = false;
             })
@@ -231,4 +234,3 @@ export default {
 
 }
 </style>
-  

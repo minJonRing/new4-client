@@ -9,7 +9,7 @@
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item to="/searchResult">列表</el-breadcrumb-item>
                     <el-breadcrumb-item :to="`/searchResult?docType=${fileDetail.docType}`">{{ text[fileDetail.docType]
-                    }}</el-breadcrumb-item>
+                        }}</el-breadcrumb-item>
                     <el-breadcrumb-item>{{ fileDetail.title }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
@@ -64,6 +64,7 @@ import MenuQk from './menu/qk/index.vue'
 
 import { ajax } from '@/api/ajax'
 import { mapGetters } from 'vuex'
+
 export default {
     name: 'BookDetail',
     components: {
@@ -120,7 +121,21 @@ export default {
                 url: `/api/books/books/${id}`,
             }).then(({ data }) => {
                 const { books } = data;
-                this.fileDetail = books
+                this.fileDetail = books;
+                console.log(books)
+                // fetch(books.imageUrl)
+                //     .then(response => {
+                //         if (!response.ok) {
+                //             throw new Error('网络响应失败');
+                //         }
+                //         return response.blob();
+                //     })
+                //     .then(blob => {
+                //         this.fileDetail = { ...books, imageUrl: URL.createObjectURL(blob) }
+                //     })
+                //     .catch(error => {
+                //         console.error('获取图片失败:', error);
+                //     });
 
             }).finally(() => {
                 this.$global.loading = false;
@@ -141,7 +156,8 @@ export default {
             }).finally(() => {
                 this.slideLoad = false
             })
-        }
+        },
+
     }
 }
 </script>

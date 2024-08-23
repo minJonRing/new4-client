@@ -68,14 +68,16 @@ export default {
                 }
             }).then(({ data }) => {
                 const { list } = data;
-                this.links = list.filter(({ type }) => type == 3)
-                const code = list.filter(({ type }) => type == 2)
-                if (!!code.length) {
-                    this.code = code[0].url
-                }
-                const logo = list.filter(({ type }) => type == 1)
-                if (!!logo.length) {
-                    this.setLogo(logo[0].url)
+                if (list) {
+                    this.links = list.filter(({ type }) => type == 3)
+                    const code = list.filter(({ type }) => type == 2)
+                    if (!!code.length) {
+                        this.code = code[0].url
+                    }
+                    const logo = list.filter(({ type }) => type == 1)
+                    if (!!logo.length) {
+                        this.setLogo(logo[0].url)
+                    }
                 }
 
             }).finally(() => {
